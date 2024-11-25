@@ -106,7 +106,7 @@ const CleaningWebsite = () => {
     },
     {
       icon: <Award className="w-6 h-6" />,
-      title: "14 Years Experience",
+      title: "12 Years Experience",
       description: "Serving Ottawa businesses since 2010"
     },
     {
@@ -179,7 +179,7 @@ const CleaningWebsite = () => {
           <div className="max-w-6xl mx-auto px-4">
             <div className="mb-6 text-center animate-fadeIn">
               <span className="bg-[#0063B2] text-white text-sm font-medium px-4 py-1.5 rounded-full">
-                Owner-Operated | 14 Years of Excellence
+                Owner-Operated | 12 Years of Excellence
               </span>
             </div>
             
