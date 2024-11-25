@@ -107,7 +107,7 @@ const CleaningWebsite = () => {
     {
       icon: <Award className="w-6 h-6" />,
       title: "12 Years Experience",
-      description: "Serving Ottawa businesses since 2010"
+      description: "Serving Ottawa businesses since 2012"
     },
     {
       icon: <Shield className="w-6 h-6" />,
