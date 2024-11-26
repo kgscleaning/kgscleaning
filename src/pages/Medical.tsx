@@ -22,7 +22,7 @@ const Medical = () => {
     },
     {
       icon: <Award className="w-6 h-6" />,
-      title: "14 Years Experience",
+      title: "12 Years Experience",
       description: "Trusted by medical offices"
     },
     {
@@ -82,7 +82,7 @@ const Medical = () => {
         <title>Medical Facility Cleaning Services Ottawa | KGS Cleaning</title>
         <meta 
           name="description" 
-          content="Professional medical facility cleaning services in Ottawa. 14 years of experience providing reliable cleaning for medical offices and clinics." 
+          content="Professional medical facility cleaning services in Ottawa. 12 years of experience providing reliable cleaning for medical offices and clinics." 
         />
       </Helmet>
       <PageTransition>

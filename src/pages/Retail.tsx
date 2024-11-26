@@ -22,7 +22,7 @@ const Retail = () => {
     },
     {
       icon: <Award className="w-6 h-6" />,
-      title: "14 Years Experience",
+      title: "12 Years Experience",
       description: "Trusted by Ottawa retailers"
     },
     {
@@ -86,7 +86,7 @@ const Retail = () => {
         <title>Retail & Store Cleaning Services Ottawa | KGS Cleaning</title>
         <meta 
           name="description" 
-          content="Professional retail cleaning services in Ottawa. 14 years of experience providing reliable cleaning for stores and showrooms." 
+          content="Professional retail cleaning services in Ottawa. 12 years of experience providing reliable cleaning for stores and showrooms." 
         />
       </Helmet>
       <PageTransition>
