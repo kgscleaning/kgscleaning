@@ -1,7 +1,6 @@
-import { useForm } from '@formspree/react';
 import React, { useState, useEffect } from 'react';
+import { useForm } from '@formspree/react';
 import {
-  Menu,
   Phone,
   Mail,
   MapPin,
@@ -12,23 +11,20 @@ import {
   Users,
   Briefcase,
   Store,
-  Home,
+  Home as HomeIcon,
   ArrowUp
 } from 'lucide-react';
 
 // Image imports
 import heroImage from './images/hero-office-clean.jpg.jpg';
-import logo from './images/logo.jpg.png';
 import servicesCommercial from './images/services-commercial.jpg.jpg';
 import servicesResidential from './images/services-residential.jpg.jpg';
 import servicesRetail from './images/services-retail.jpg.jpg';
 
 const CleaningWebsite = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [formState, handleSubmit] = useForm("mvgobvbz");
 
-  // Handle scroll to top button visibility
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 400);
@@ -38,7 +34,6 @@ const CleaningWebsite = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Optional: Reset form after submission
   if (formState.succeeded) {
     setTimeout(() => {
       const form = document.getElementById('contact-form') as HTMLFormElement;
@@ -46,13 +41,11 @@ const CleaningWebsite = () => {
     }, 2000);
   }
 
-  // Smooth scroll function for navigation
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-    setIsMenuOpen(false);
   };
 
   const services = [
@@ -71,7 +64,7 @@ const CleaningWebsite = () => {
       features: ["Retail spaces", "Showrooms", "Customer areas", "Staff rooms"]
     },
     {
-      icon: <Home className="w-8 h-8" />,
+      icon: <HomeIcon className="w-8 h-8" />,
       image: servicesResidential,
       title: "Residential Cleaning",
       description: "Quality home cleaning services",
@@ -118,54 +111,6 @@ const CleaningWebsite = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50 transition-all duration-300">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex justify-between items-center h-20">
-          <div className="flex items-center">
-            <img 
-              src={logo} 
-              alt="KGS Cleaning" 
-              className="h-32 md:h-48 w-auto rounded transition-all" 
-            />
-          </div>
-            
-            <div className="hidden md:flex space-x-8">
-              {['services', 'industries', 'contact'].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className="text-[#0B1B3D] hover:text-[#0063B2] transition-colors capitalize"
-                >
-                  {section}
-                </button>
-              ))}
-            </div>
-            
-            <button 
-              className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <Menu className="text-[#0B1B3D]" />
-            </button>
-          </div>
-        </div>
-        
-        {isMenuOpen && (
-          <div className="md:hidden bg-white border-t animate-slideDown">
-            {['services', 'industries', 'contact'].map((section) => (
-              <button
-                key={section}
-                onClick={() => scrollToSection(section)}
-                className="block w-full px-4 py-2 text-left text-[#0B1B3D] hover:bg-gray-50 transition-colors capitalize"
-              >
-                {section}
-              </button>
-            ))}
-          </div>
-        )}
-      </nav>
-
       {/* Hero Section */}
       <div className="relative min-h-[90vh] flex items-center">
         <div className="absolute inset-0 z-0">
@@ -191,7 +136,6 @@ const CleaningWebsite = () => {
               Serving Ottawa's leading businesses with owner-operated, professional cleaning services. Trusted by medical facilities, retail chains, and corporate offices.
             </p>
 
-            {/* Benefits Bar */}
             <div className="bg-white/95 backdrop-blur p-6 rounded-lg shadow-lg max-w-4xl mx-auto mb-8 animate-slideUp">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {benefits.map((benefit, index) => (
@@ -208,7 +152,6 @@ const CleaningWebsite = () => {
               </div>
             </div>
 
-            {/* CTA Buttons */}
             <div className="flex flex-col md:flex-row justify-center gap-4 animate-fadeIn">
               <button
                 onClick={() => scrollToSection('contact')}
@@ -345,102 +288,59 @@ const CleaningWebsite = () => {
                   placeholder="Phone Number"
                   required
                   className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#0063B2] focus:outline-none"
-                  />
-                  <textarea
-                    id="message"
-                    name="message"
-                    placeholder="Tell us about your cleaning needs"
-                    required
-                    rows={4}
-                    className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#0063B2] focus:outline-none resize-none"
-                  />
-                  <button
-                    type="submit"
-                    disabled={formState.submitting}
-                    className="w-full bg-[#0063B2] text-white px-6 py-3 rounded-lg hover:bg-[#004d8f] transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-                  >
-                    {formState.submitting ? (
-                      <span className="inline-flex items-center">
-                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Sending...
-                      </span>
-                    ) : (
-                      'Send Message'
-                    )}
-                  </button>
-                  {formState.succeeded && (
-                    <div className="mt-4 p-4 bg-green-50 text-green-700 rounded-lg">
-                      Thank you for your message! We'll get back to you soon.
-                    </div>
+                />
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Tell us about your cleaning needs"
+                  required
+                  rows={4}
+                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#0063B2] focus:outline-none resize-none"
+                />
+                <button
+                  type="submit"
+                  disabled={formState.submitting}
+                  className="w-full bg-[#0063B2] text-white px-6 py-3 rounded-lg hover:bg-[#004d8f] transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  {formState.submitting ? (
+                    <span className="inline-flex items-center">
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Sending...
+                    </span>
+                  ) : (
+                    'Send Message'
                   )}
-                  {formState.errors && Object.keys(formState.errors).length > 0 && (
-  <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-lg">
-    There was an error sending your message. Please try again.
-  </div>
-)}
-                </form>
-              </div>
+                </button>
+                {formState.succeeded && (
+                  <div className="mt-4 p-4 bg-green-50 text-green-700 rounded-lg">
+                    Thank you for your message! We'll get back to you soon.
+                  </div>
+                )}
+                {formState.errors && Object.keys(formState.errors).length > 0 && (
+                  <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-lg">
+                   There was an error sending your message. Please try again.
+                  </div>
+                )}
+              </form>
             </div>
           </div>
         </div>
-  
-        {/* Footer */}
-        <footer className="bg-[#0B1B3D] text-white py-16">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="grid md:grid-cols-3 gap-12 mb-12">
-              <div>
-                <h4 className="text-lg font-semibold mb-6">Quick Links</h4>
-                <ul className="space-y-3">
-                  {['services', 'industries', 'contact'].map((section) => (
-                    <li key={section}>
-                      <button
-                        onClick={() => scrollToSection(section)}
-                        className="text-gray-300 hover:text-white transition-colors capitalize"
-                      >
-                        {section}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-lg font-semibold mb-6">Industries</h4>
-                <ul className="space-y-3">
-                  <li className="text-gray-300">Medical & Professional</li>
-                  <li className="text-gray-300">Retail & Automotive</li>
-                  <li className="text-gray-300">Corporate & Technology</li>
-                  <li className="text-gray-300">Industrial</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-lg font-semibold mb-6">Contact</h4>
-                <div className="space-y-3 text-gray-300">
-                  <p>Phone: (613) 700-1815</p>
-                  <p>Email: KGS.cleaning@yahoo.fr</p>
-                  <p>Location: Ottawa, Ontario</p>
-                </div>
-              </div>
-            </div>
-            <div className="text-center text-gray-300 border-t border-gray-700 pt-8">
-              <p>© 2024 KGS Cleaning. All rights reserved.</p>
-            </div>
-          </div>
-        </footer>
-  
-        {/* Scroll to top button */}
-        {showScrollTop && (
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-8 right-8 bg-[#0063B2] text-white p-3 rounded-full shadow-lg hover:bg-[#004d8f] transition-all hover:scale-110 animate-fadeIn"
-          >
-            <ArrowUp className="w-6 h-6" />
-          </button>
-        )}
       </div>
-    );
-  };
-  
-  export default CleaningWebsite;
+
+      {/* Scroll to top button */}
+      {showScrollTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-8 right-8 bg-[#0063B2] text-white p-3 rounded-full shadow-lg hover:bg-[#004d8f] transition-all hover:scale-110 animate-fadeIn"
+        >
+          <ArrowUp className="w-6 h-6" />
+        </button>
+      )}
+    </div>
+  );
+};
+
+export default CleaningWebsite;
