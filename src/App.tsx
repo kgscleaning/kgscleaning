@@ -13,6 +13,7 @@ const Medical = React.lazy(() => import('./pages/Medical'));
 const Office = React.lazy(() => import('./pages/Office'));
 const Retail = React.lazy(() => import('./pages/Retail'));
 const Industrial = React.lazy(() => import('./pages/Industrial'));
+const Contact = React.lazy(() => import('./pages/Contact'));
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
                   <Route path="/office" element={<Office />} />
                   <Route path="/retail" element={<Retail />} />
                   <Route path="/industrial" element={<Industrial />} />
+                  <Route path="/contact" element={<Contact />} />
                 </Routes>
               </AnimatePresence>
             </Suspense>

@@ -252,7 +252,7 @@ const CleaningWebsite = () => {
                   <div className="p-3 bg-[#0063B2] text-white rounded-lg group-hover:scale-110 transition">
                     <Mail className="w-6 h-6" />
                   </div>
-                  <span className="text-lg">KGS.cleaning@yahoo.fr</span>
+                  <span className="text-lg">KGS.cleaning@yahoo.ca</span>
                 </div>
                 <div className="flex items-center space-x-3 group">
                   <div className="p-3 bg-[#0063B2] text-white rounded-lg group-hover:scale-110 transition">
@@ -321,7 +321,7 @@ const CleaningWebsite = () => {
                 )}
                 {formState.errors && Object.keys(formState.errors).length > 0 && (
                   <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-lg">
-                   There was an error sending your message. Please try again.
+                    There was an error sending your message. Please try again.
                   </div>
                 )}
               </form>

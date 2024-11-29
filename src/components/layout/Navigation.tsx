@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Menu } from 'lucide-react';
+import { Menu, ChevronDown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../../pages/images/logo.png';  // Fixed import path
+import logo from '../../pages/images/logo.png';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isPagesMenuOpen, setIsPagesMenuOpen] = useState(false);
+  const [isServicesMenuOpen, setIsServicesMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
-  const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/medical', label: 'Medical' },
-    { path: '/office', label: 'Office' },
-    { path: '/retail', label: 'Retail' },
-    { path: '/industrial', label: 'Industrial' }
+  // Define your services with paths and labels
+  const serviceLinks = [
+    { path: '/medical', label: 'Medical Cleaning', description: 'Specialized cleaning for healthcare facilities' },
+    { path: '/office', label: 'Office Cleaning', description: 'Professional cleaning for workspaces' },
+    { path: '/retail', label: 'Retail Cleaning', description: 'Cleaning solutions for retail spaces' },
+    { path: '/industrial', label: 'Industrial Cleaning', description: 'Heavy-duty cleaning for industrial facilities' }
   ];
 
   useEffect(() => {
@@ -27,8 +27,8 @@ const Navigation = () => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
-      if (!target.closest('.pages-menu') && !target.closest('.mobile-menu')) {
-        setIsPagesMenuOpen(false);
+      if (!target.closest('.services-menu') && !target.closest('.mobile-menu')) {
+        setIsServicesMenuOpen(false);
         setIsMenuOpen(false);
       }
     };
@@ -52,54 +52,68 @@ const Navigation = () => {
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">
-            {/* Section Links */}
-            {location.pathname === '/' && (
-              <div className="flex space-x-8">
-                {['services', 'industries', 'contact'].map((section) => (
-                  <button
-                    key={section}
-                    onClick={() => {
-                      const element = document.getElementById(section);
-                      if (element) element.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="text-[#0B1B3D] hover:text-[#0063B2] transition-colors capitalize"
-                  >
-                    {section}
-                  </button>
-                ))}
-              </div>
-            )}
-            
-            {/* Pages Menu */}
-            <div className="relative pages-menu">
+            {/* Home Link */}
+            <Link 
+              to="/"
+              className="text-[#0B1B3D] hover:text-[#0063B2] transition-colors"
+            >
+              Home
+            </Link>
+
+            {/* Services Dropdown */}
+            <div className="relative services-menu">
               <button 
-                className="text-[#0B1B3D] hover:text-[#0063B2] transition-colors px-4 py-2 rounded-lg border border-[#0B1B3D]"
+                className="flex items-center space-x-1 text-[#0B1B3D] hover:text-[#0063B2] transition-colors group"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setIsPagesMenuOpen(!isPagesMenuOpen);
+                  setIsServicesMenuOpen(!isServicesMenuOpen);
                 }}
               >
-                Pages
+                <span>Services</span>
+                <ChevronDown 
+                  className={`w-4 h-4 transition-transform duration-200 ${
+                    isServicesMenuOpen ? 'rotate-180' : ''
+                  }`}
+                />
               </button>
-              {isPagesMenuOpen && (
-                <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 animate-slideDown">
-                  {navLinks.map((link) => (
+              
+              {isServicesMenuOpen && (
+                <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-100 animate-slideDown">
+                  {serviceLinks.map((service) => (
                     <Link
-                      key={link.path}
-                      to={link.path}
-                      className={`block px-4 py-2 text-sm ${
-                        location.pathname === link.path
-                          ? 'bg-blue-50 text-[#0063B2] font-medium'
-                          : 'text-[#0B1B3D] hover:bg-gray-50'
+                      key={service.path}
+                      to={service.path}
+                      className={`block px-4 py-3 hover:bg-gray-50 transition-colors ${
+                        location.pathname === service.path
+                          ? 'bg-blue-50 text-[#0063B2]'
+                          : 'text-[#0B1B3D]'
                       }`}
-                      onClick={() => setIsPagesMenuOpen(false)}
+                      onClick={() => setIsServicesMenuOpen(false)}
                     >
-                      {link.label}
+                      <div className="font-medium">{service.label}</div>
+                      <div className="text-sm text-gray-500 mt-1">
+                        {service.description}
+                      </div>
                     </Link>
                   ))}
                 </div>
               )}
             </div>
+
+            {/* Additional Navigation Items */}
+            <Link 
+              to="/about"
+              className="text-[#0B1B3D] hover:text-[#0063B2] transition-colors"
+            >
+              About
+            </Link>
+            
+            <Link 
+              to="/contact"
+              className="text-[#0B1B3D] hover:text-[#0063B2] transition-colors"
+            >
+              Contact
+            </Link>
           </div>
           
           {/* Mobile Menu Button */}
@@ -118,41 +132,48 @@ const Navigation = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t animate-slideDown mobile-menu">
-          {/* Section Links - Only on home page */}
-          {location.pathname === '/' && ['services', 'industries', 'contact'].map((section) => (
-            <button
-              key={section}
-              onClick={() => {
-                const element = document.getElementById(section);
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                  setIsMenuOpen(false);
-                }
-              }}
-              className="block w-full px-4 py-2 text-left text-[#0B1B3D] hover:bg-gray-50 transition-colors capitalize"
-            >
-              {section}
-            </button>
-          ))}
+          <Link
+            to="/"
+            className="block px-4 py-2 text-[#0B1B3D] hover:bg-gray-50 transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Home
+          </Link>
           
-          {/* Divider */}
-          {location.pathname === '/' && <div className="my-2 border-t border-gray-100" />}
-          
-          {/* Page Links */}
-          {navLinks.map((link) => (
+          {/* Services Section in Mobile Menu */}
+          <div className="py-2 px-4 text-sm font-medium text-gray-500 bg-gray-50">
+            Services
+          </div>
+          {serviceLinks.map((service) => (
             <Link
-              key={link.path}
-              to={link.path}
-              className={`block w-full px-4 py-2 text-left ${
-                location.pathname === link.path
-                  ? 'bg-blue-50 text-[#0063B2] font-medium'
+              key={service.path}
+              to={service.path}
+              className={`block px-4 py-2 pl-6 ${
+                location.pathname === service.path
+                  ? 'bg-blue-50 text-[#0063B2]'
                   : 'text-[#0B1B3D] hover:bg-gray-50'
               }`}
               onClick={() => setIsMenuOpen(false)}
             >
-              {link.label}
+              {service.label}
             </Link>
           ))}
+          
+          <Link
+            to="/about"
+            className="block px-4 py-2 text-[#0B1B3D] hover:bg-gray-50 transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            About
+          </Link>
+          
+          <Link
+            to="/contact"
+            className="block px-4 py-2 text-[#0B1B3D] hover:bg-gray-50 transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Contact
+          </Link>
         </div>
       )}
     </nav>
